@@ -13,6 +13,8 @@ class Tractor:
             print("Tractor is driving.")
             if self.implement_attached:
                 self.implement_attached.operate(field)
+                self.implement_attached = None
+                print("Out of fuel, please refuel and re-attach implement.")
         else:
             print("No fuel left.")
 
@@ -21,8 +23,11 @@ class Tractor:
         print("Tractor stopped.")
 
     def refuel(self):
-        self.has_fuel = True
-        print("Fuel is refilled.")
+        if self.is_driving == False:
+            self.has_fuel = True
+            print("Fuel is refilled.")
+        else:
+            print("Stop the tractor first.")
 
     def attach_implement(self, implement):
         if not self.implement_attached:

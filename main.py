@@ -3,11 +3,11 @@ from tkinter import ttk
 from machines import *
 from farm import *
 
-class FarmingApp:
+class Farm:
     def __init__(self, root):
         self.root = root
-        self.root.title("Farming Simulator")
-        self.root.geometry("600x500")
+        self.root.title("Farm")
+        self.root.geometry("600x200")
 
         self.tractor = Tractor("BMW", "X500", has_fuel=True)
         self.field = Field()
@@ -17,8 +17,7 @@ class FarmingApp:
         self.attach_harvester_button = ttk.Button(root, text="Attach Harvester", command=self.attach_harvester)
         self.detach_implement_button = ttk.Button(root, text="Detach Implement", command=self.detach_implement)
         self.drive_button = ttk.Button(root, text="Drive Tractor", command=self.drive_tractor)
-        self.stop_button = ttk.Button(root, text="Stop Tractor", command=self.stop_tractor)
-        self.refuel_button = ttk.Button(root, text="Refuel Tractor", command=self.refuel_tractor)
+        self.stop_refuel_button = ttk.Button(root, text="Stop&Refuel Tractor", command=self.stop_tractor)
         self.pass_day_button = ttk.Button(root, text="Wait a Day", command=self.pass_day)
         self.buy_banana_button = ttk.Button(root, text="Buy Banana Seeds", command=self.buy_banana_seeds)
         self.buy_pineapple_button = ttk.Button(root, text="Buy Pineapple Seeds", command=self.buy_pineapple_seeds)
@@ -31,15 +30,13 @@ class FarmingApp:
         self.attach_harvester_button.grid(row=0, column=2, padx=5, pady=5)
         self.detach_implement_button.grid(row=0, column=3, padx=5, pady=5)
         self.drive_button.grid(row=1, column=0, padx=5, pady=5)
-        self.stop_button.grid(row=1, column=1, padx=5, pady=5)
-        self.refuel_button.grid(row=1, column=2, padx=5, pady=5)
-        self.pass_day_button.grid(row=1, column=3, padx=5, pady=5)
+        self.stop_refuel_button.grid(row=1, column=1, padx=5, pady=5)
+        self.pass_day_button.grid(row=1, column=2, padx=5, pady=5)
         self.buy_banana_button.grid(row=2, column=0, padx=5, pady=5)
         self.buy_pineapple_button.grid(row=2, column=1, padx=5, pady=5)
         self.buy_watermelon_button.grid(row=2, column=2, padx=5, pady=5)
         self.balance_label.grid(row=3, column=0, columnspan=2, padx=5, pady=5)
         self.seed_label.grid(row=4, column=0, columnspan=3, padx=5, pady=5)
-
         self.update_balance()
         self.update_seeds()
 
@@ -60,6 +57,7 @@ class FarmingApp:
 
     def stop_tractor(self):
         self.tractor.stop()
+        self.tractor.refuel()
 
     def refuel_tractor(self):
         self.tractor.refuel()
@@ -93,5 +91,5 @@ class FarmingApp:
 
 if __name__ == "__main__":
     root = tk.Tk()
-    app = FarmingApp(root)
+    app = Farm(root)
     root.mainloop()
