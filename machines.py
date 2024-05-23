@@ -17,6 +17,7 @@ class Tractor:
                 print("Out of fuel, please refuel and re-attach implement.")
         else:
             print("No fuel left.")
+    # detach implement automatically after using fuel
 
     def stop(self):
         self.is_driving = False
@@ -43,7 +44,7 @@ class Tractor:
             self.implement_attached = None
         else:
             print("No implement is attached.")
-
+    # changed so it doesn't take attribute anymore
 
 class Implement:
     def __init__(self, attached=False):
@@ -85,4 +86,22 @@ class Harvester(Implement):
             field.harvest()
         else:
             print("Harvester is not attached to the tractor.")
+
+class Water_tank(Implement):
+    def __init__(self, attached=False, has_water=False):
+        super().__init__(attached)
+        self.has_water = has_water
+    def operate(self, field):
+        if self.attached:
+            if self.has_water:
+                field.water()
+            else:
+                print("Fill the water first.")
+    def refill_water(self):
+        if not self.has_water:
+            self.has_water = True
+            print("Water has been filled.")
+        else:
+            print("Water tank is full.")
+
 

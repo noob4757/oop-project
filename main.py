@@ -7,7 +7,7 @@ class Farm:
     def __init__(self, root):
         self.root = root
         self.root.title("Farm")
-        self.root.geometry("600x200")
+        self.root.geometry("700x200")
 
         self.tractor = Tractor("BMW", "X500", has_fuel=True)
         self.field = Field()
@@ -15,9 +15,11 @@ class Farm:
         self.attach_plow_button = ttk.Button(root, text="Attach Plow", command=self.attach_plow)
         self.attach_planter_button = ttk.Button(root, text="Attach Planter", command=self.attach_planter)
         self.attach_harvester_button = ttk.Button(root, text="Attach Harvester", command=self.attach_harvester)
+        self.attach_water_tank_button = ttk.Button(root, text="Attach Water Tank", command=self.attach_water_tank)
         self.detach_implement_button = ttk.Button(root, text="Detach Implement", command=self.detach_implement)
         self.drive_button = ttk.Button(root, text="Drive Tractor", command=self.drive_tractor)
         self.stop_refuel_button = ttk.Button(root, text="Stop&Refuel Tractor", command=self.stop_tractor)
+        self.refill_water_button = ttk.Button(root, text="Refill Water Tank", command=self.refill_water_tank)
         self.pass_day_button = ttk.Button(root, text="Wait a Day", command=self.pass_day)
         self.buy_banana_button = ttk.Button(root, text="Buy Banana Seeds", command=self.buy_banana_seeds)
         self.buy_pineapple_button = ttk.Button(root, text="Buy Pineapple Seeds", command=self.buy_pineapple_seeds)
@@ -28,10 +30,12 @@ class Farm:
         self.attach_plow_button.grid(row=0, column=0, padx=5, pady=5)
         self.attach_planter_button.grid(row=0, column=1, padx=5, pady=5)
         self.attach_harvester_button.grid(row=0, column=2, padx=5, pady=5)
-        self.detach_implement_button.grid(row=0, column=3, padx=5, pady=5)
+        self.attach_water_tank_button.grid(row=0, column=3, padx=5, pady=5)
+        self.detach_implement_button.grid(row=0, column=4, padx=5, pady=5)
         self.drive_button.grid(row=1, column=0, padx=5, pady=5)
         self.stop_refuel_button.grid(row=1, column=1, padx=5, pady=5)
-        self.pass_day_button.grid(row=1, column=2, padx=5, pady=5)
+        self.refill_water_button.grid(row=1, column=2, padx=5, pady=5)
+        self.pass_day_button.grid(row=1, column=3, padx=5, pady=5)
         self.buy_banana_button.grid(row=2, column=0, padx=5, pady=5)
         self.buy_pineapple_button.grid(row=2, column=1, padx=5, pady=5)
         self.buy_watermelon_button.grid(row=2, column=2, padx=5, pady=5)
@@ -49,6 +53,9 @@ class Farm:
     def attach_harvester(self):
         self.tractor.attach_implement(Harvester())
 
+    def attach_water_tank(self):
+        self.tractor.attach_implement(Water_tank())
+
     def detach_implement(self):
         self.tractor.detach_implement()
 
@@ -59,8 +66,8 @@ class Farm:
         self.tractor.stop()
         self.tractor.refuel()
 
-    def refuel_tractor(self):
-        self.tractor.refuel()
+    def refill_water_tank(self):
+        self.tractor.implement_attached.refill_water()
 
     def pass_day(self):
         self.field.pass_day()
