@@ -17,8 +17,7 @@ class Field:
         'watermelon': 5
     }
 
-    FIELD_STATES = ['unplowed', 'plowed', 'planted', 'watered', 'ready for harvest']
-    # added a new state for the field and the implement
+    FIELD_STATES = ['unplowed', 'plowed', 'planted', 'ready for harvest']
 
     def __init__(self):
         self.state = self.FIELD_STATES[0]  # Initial state is 'unplowed'
@@ -48,7 +47,7 @@ class Field:
             print("The field needs to be plowed before planting.")
 
     def harvest(self):
-        if self.state == self.FIELD_STATES[4]:  # ready for harvest
+        if self.state == self.FIELD_STATES[3]:  # ready for harvest
             profit = Field.HARVEST_PROFITS[self.current_seed]
             self.balance += profit
             print(f"The field has been harvested. Profit: {profit}. Current balance: {self.balance}.")
@@ -70,19 +69,12 @@ class Field:
             print("Invalid seed type.")
 
     def pass_day(self):
-        if self.state == self.FIELD_STATES[3] and self.days_until_harvest > 0:  # watered
+        if self.state == self.FIELD_STATES[2] and self.days_until_harvest > 0:  # planted
             self.days_until_harvest -= 1
             if self.days_until_harvest == 0:
-                self.state = self.FIELD_STATES[4]  # ready for harvest
+                self.state = self.FIELD_STATES[3]  # ready for harvest
                 print(f"The {self.current_seed} is ready for harvest.")
             else:
                 print(f"{self.days_until_harvest} days left until the {self.current_seed} is ready for harvest.")
         else:
-            print("No crops growing or field is not watered or the crops are ready to be harvested.")
-
-    def water(self):
-        if self.state == self.FIELD_STATES[2]:  # planted
-            self.state = self.FIELD_STATES[3]  # watered
-            print("Field has been watered.")
-        else:
-            print("The field cannot be watered.")
+            print("No crops growing or already ready for harvest.")
